@@ -1,0 +1,114 @@
+body {
+    font-family: Trebuchet MS, sans-serif; /* Substitua 'Arial' pela fonte desejada */
+  }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 6px; /* Reduzindo o espaçamento interno */
+    text-align: center; /* Centralizando o texto */
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 6px 12px; /* Reduzindo o espaçamento interno dos botões */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 2px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  .my-credentials-input {
+    border: none;
+    background-color: #f2f2f2;
+    padding: 6px;
+    margin: 0;
+    cursor: default;
+    outline: none;
+    text-align: center;
+    color: #333;
+    border-radius: 4px;
+  }
+  
+/* CSS para estilizar o modal de edição */
+.edit-modal {
+    font-family: Trebuchet MS, sans-serif;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 100px 250px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 500px;
+    font-size: 24px;
+  }
+  
+  .edit-modal h2 {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 100px; /* Aumenta a distância entre o título e o restante do conteúdo */
+  }
+  
+  .edit-modal form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .edit-modal label {
+    margin-bottom: 10px;
+    width: 100%;
+    margin-top: 25px;
+  }
+  
+  .edit-modal input {
+    width: 100%;
+    padding: 6px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    margin-top: 5px;
+    font-size: 18px;
+  }
+  
+  .edit-modal button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 16px 120px; /* Aumenta o padding vertical e horizontal */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px; /* Aumenta o tamanho do texto do botão */
+    margin-top: 50px; /* Aumenta a distância entre o botão e os campos */
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .edit-modal button:hover {
+    background-color: #45a049;
+  }
+  
