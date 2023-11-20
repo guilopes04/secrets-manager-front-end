@@ -132,7 +132,7 @@ const MyCredentials = () => {
 
   return (
     <div>
-      <h1>Credenciais</h1>
+      <h1>Secrets Manager</h1>
       <table>
         <thead>
           <tr>
