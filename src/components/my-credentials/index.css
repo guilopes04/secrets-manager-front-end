@@ -6,12 +6,14 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
+    margin-top: 0;
   }
   
   th, td {
     border: 1px solid #ddd;
     padding: 6px; /* Reduzindo o espaçamento interno */
     text-align: center; /* Centralizando o texto */
+    border-style: none;
   }
   
   th {
@@ -30,8 +32,8 @@ table {
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 14px;
-    margin: 2px;
+    font-size: 20px;
+    margin: 10%;
     cursor: pointer;
     border-radius: 4px;
   }
@@ -110,5 +112,20 @@ table {
   
   .edit-modal button:hover {
     background-color: #45a049;
+  }
+
+  .header-title {
+    border: 1px solid #45a049;
+    padding: 2%;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 0;
+    background-color: #45a049;
+  }
+
+  .bottom-buttons {
+    margin-left: 27%;
+    margin-top: 5%;
+    align-items: center;
   }
   

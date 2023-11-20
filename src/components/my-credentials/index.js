@@ -27,6 +27,9 @@ const MyCredentials = () => {
         setCredentials(
           myCredentials.map((cred) => ({ ...cred, showPassword: false }))
         )
+      } else {
+        const responseParsed = await response.json()
+        alert(responseParsed.displayMessage)
       }
     } catch (error) {
       console.error(error)
@@ -45,8 +48,8 @@ const MyCredentials = () => {
   }
 
   const openEditModal = (credential) => {
-    setSelectedCredential(credential)
-    setEditedCredential({ ...credential })
+    setSelectedCredential(credential ?? {})
+    setEditedCredential({ ...credential } ?? {})
     setEditModalIsOpen(true)
   }
 
@@ -61,12 +64,13 @@ const MyCredentials = () => {
     setEditedCredential({ ...editedCredential, [name]: value })
   }
 
-  const handleSaveEditedCredential = async () => {
+  const handleSaveEditedCredential = async (event) => {
+    event.preventDefault()
     try {
       const response = await fetch(
         `${process.env.REACT_APP_DOMAIN_API}/password`,
         {
-          method: 'PUT',
+          method: editedCredential._id ? 'PUT' : 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
@@ -78,34 +82,9 @@ const MyCredentials = () => {
         // Atualização bem-sucedida
         closeEditModal()
         getMyCredentials() // Requisita os dados atualizados
-      }
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  const handleEdit = async (credential) => {
-    try {
-      // Aqui você fará a chamada PUT para atualizar a senha
-      const response = await fetch(
-        `${process.env.REACT_APP_DOMAIN_API}/password`,
-        {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            _id: credential._id,
-            title: credential.title,
-            password: credential.password,
-            site: credential.site
-          })
-        }
-      )
-
-      if (response.ok) {
-        // Senha atualizada com sucesso
-        // Faça alguma ação, se necessário
+      } else {
+        const responseParsed = await response.json()
+        alert(responseParsed.displayMessage)
       }
     } catch (error) {
       console.error(error)
@@ -124,6 +103,9 @@ const MyCredentials = () => {
 
       if (response.ok) {
         getMyCredentials()
+      } else {
+        const responseParsed = await response.json()
+        alert(responseParsed.displayMessage)
       }
     } catch (error) {
       console.error(error)
@@ -132,7 +114,7 @@ const MyCredentials = () => {
 
   return (
     <div>
-      <h1>Secrets Manager</h1>
+      <h1 className="header-title">Secrets Manager</h1>
       <table>
         <thead>
           <tr>
@@ -141,6 +123,8 @@ const MyCredentials = () => {
             <th>Domínio</th>
             <th>Criado</th>
             <th>Atualizado</th>
+            <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -187,6 +171,12 @@ const MyCredentials = () => {
           ))}
         </tbody>
       </table>
+      <div className="bottom-buttons">
+        <button onClick={() => openEditModal()}>
+          Adicionar Nova Credencial
+        </button>
+        <button>Gerar Senha</button>
+      </div>
       <Modal
         isOpen={editModalIsOpen}
         onRequestClose={closeEditModal}
