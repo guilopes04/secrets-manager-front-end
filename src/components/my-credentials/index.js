@@ -8,6 +8,7 @@ const MyCredentials = () => {
   const [editModalIsOpen, setEditModalIsOpen] = useState(false)
   const [selectedCredential, setSelectedCredential] = useState(null)
   const [editedCredential, setEditedCredential] = useState({})
+  const [generatedPassword, setGeneratedPassword] = useState('')
 
   const getMyCredentials = async () => {
     try {
@@ -82,6 +83,7 @@ const MyCredentials = () => {
         // Atualização bem-sucedida
         closeEditModal()
         getMyCredentials() // Requisita os dados atualizados
+        setGeneratedPassword('')
       } else {
         const responseParsed = await response.json()
         alert(responseParsed.displayMessage)
@@ -92,6 +94,10 @@ const MyCredentials = () => {
   }
 
   const handleDelete = async (id) => {
+    const confirmDelete = window.confirm(
+      'Tem certeza que deseja excluir este item?'
+    )
+    if (!confirmDelete) return
     try {
       // Aqui você fará a chamada DELETE para excluir a senha
       const response = await fetch(
@@ -103,6 +109,38 @@ const MyCredentials = () => {
 
       if (response.ok) {
         getMyCredentials()
+      } else {
+        const responseParsed = await response.json()
+        alert(responseParsed.displayMessage)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const handleGeneratePassword = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_DOMAIN_API}/generate-password`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            length: 15,
+            numbers: true,
+            symbols: true,
+            uppercase: true,
+            lowercase: true
+          })
+        }
+      )
+
+      if (response.ok) {
+        const { password } = await response.json()
+        setGeneratedPassword(password) // Atualiza o estado com a senha gerada
+        setEditedCredential({ ...editedCredential, password })
       } else {
         const responseParsed = await response.json()
         alert(responseParsed.displayMessage)
@@ -175,7 +213,6 @@ const MyCredentials = () => {
         <button onClick={() => openEditModal()}>
           Adicionar Nova Credencial
         </button>
-        <button>Gerar Senha</button>
       </div>
       <Modal
         isOpen={editModalIsOpen}
@@ -199,7 +236,7 @@ const MyCredentials = () => {
             <input
               type="password"
               name="password"
-              value={editedCredential.password || ''}
+              value={editedCredential.password || generatedPassword}
               onChange={handleInputChange}
             />
           </label>
@@ -212,6 +249,9 @@ const MyCredentials = () => {
               onChange={handleInputChange}
             />
           </label>
+          <button type="button" onClick={handleGeneratePassword}>
+            Gerar Senha
+          </button>
           <button type="submit">Save</button>
         </form>
       </Modal>
