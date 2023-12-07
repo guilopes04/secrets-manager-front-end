@@ -18,3 +18,7 @@ Isso iniciará o aplicativo no modo de desenvolvimento e abrirá [http://localho
 - Excluir credenciais conforme necessário.
 
 O projeto oferece uma interface onde os usuários podem gerenciar suas credenciais, visualizar senhas ocultas e manipular informações relacionadas a sites específicos de forma simples e conveniente.
+
+## Link github
+
+[https://github.com/guilopes04](https://github.com/guilopes04/secrets-manager-front-end)
